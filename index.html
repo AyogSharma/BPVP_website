@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BPVP NGO</title>
+
+<style>
+
+/* =========================
+   GENERAL PAGE SETTINGS
+   Removes default spacing and sets the basic font
+   ========================= */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+/* =========================
+   BODY
+   Sets the background and text color of the whole website
+   ========================= */
+body{
+    background:#f4f7f4;
+    color:#222;
+}
+
+/* =========================
+   HEADER
+   Creates the green navigation bar at the top
+   ========================= */
+header{
+    background:#0b7a3b;
+    color:white;
+    padding:18px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+}
+
+/* =========================
+   NAVIGATION LINKS
+   Styles the About, Events and Contact links
+   ========================= */
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+    font-weight:bold;
+}
+
+/* =========================
+   HERO SECTION
+   Creates the large welcome/banner section
+   with a background image and dark overlay
+   ========================= */
+.hero{
+    height:90vh;
+
+    background:
+    linear-gradient(rgba(0,0,0,.5),rgba(0,0,0,.5)),
+    url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400');
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+    color:white;
+    padding:20px;
+}
+
+/* =========================
+   HERO HEADING
+   Controls the size of the main BPVP heading
+   ========================= */
+.hero h1{
+    font-size:55px;
+}
+
+/* =========================
+   HERO DESCRIPTION
+   Styles the text below the main heading
+   ========================= */
+.hero p{
+    margin:15px 0;
+    font-size:20px;
+}
+
+/* =========================
+   BUTTON
+   Styles the Learn More button
+   ========================= */
+.btn{
+    display:inline-block;
+    background:#00c853;
+    color:white;
+    padding:12px 25px;
+    text-decoration:none;
+    border-radius:30px;
+}
+
+/* =========================
+   ALL SECTIONS
+   Adds spacing around each major section
+   ========================= */
+section{
+    padding:70px 8%;
+}
+
+/* =========================
+   SECTION HEADINGS
+   Styles headings such as About BPVP,
+   Our Event Gallery and Contact Us
+   ========================= */
+h2{
+    text-align:center;
+    color:#0b7a3b;
+    margin-bottom:30px;
+}
+
+/* =========================
+   CARDS CONTAINER
+   Creates a responsive grid for information cards
+   ========================= */
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px;
+}
+
+/* =========================
+   CARD
+   Styles individual information cards
+   ========================= */
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
+    text-align:center;
+}
+
+/* =========================
+   TIMELINE / DOCUMENT BOX
+   Styles the registration and document information boxes
+   ========================= */
+.timeline{
+    background:white;
+    padding:20px;
+    border-left:5px solid green;
+    margin:15px 0;
+}
+
+/* =========================
+   EVENT BOX
+   Creates the container for each event in the gallery
+   ========================= */
+.event{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:40px;
+    box-shadow:0 5px 12px rgba(0,0,0,.08);
+}
+
+/* =========================
+   IMAGE GRID
+   Arranges multiple event photos in a responsive grid
+   ========================= */
+.images{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+    gap:12px;
+    margin-top:15px;
+}
+
+/* =========================
+   EVENT IMAGES
+   Controls the size and appearance of gallery photos
+   ========================= */
+.images img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+/* =========================
+   IMAGE HOVER EFFECT
+   Slightly enlarges an image when the mouse is placed over it
+   ========================= */
+.images img:hover{
+    transform:scale(1.04);
+}
+
+/* =========================
+   FOOTER
+   Creates the green footer at the bottom of the website
+   ========================= */
+footer{
+    background:#0b7a3b;
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+/* =========================
+   IMAGE VIEWER
+   Creates the dark full-screen background
+   when someone clicks an event photo
+   ========================= */
+#viewer{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.9);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+/* =========================
+   LARGE IMAGE
+   Displays the selected photo in the image viewer
+   ========================= */
+#viewer img{
+    max-width:90%;
+    max-height:85%;
+}
+
+/* =========================
+   CLOSE BUTTON
+   Styles the X button used to close the image viewer
+   ========================= */
+#close{
+    position:absolute;
+    top:25px;
+    right:35px;
+    color:white;
+    font-size:35px;
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- =========================
+     HEADER / NAVIGATION
+     Contains the BPVP name and navigation links
+     ========================= -->
+
+<header>
+
+<h1>BPVP</h1>
+
+<nav>
+<a href="#about">About</a>
+<a href="#gallery">Events</a>
+<a href="#contact">Contact</a>
+</nav>
+
+</header>
+
+
+<!-- =========================
+     HERO / WELCOME SECTION
+     Main introduction shown when the website opens
+     ========================= -->
+
+<section class="hero">
+
+<div>
+
+<h1>Bhut-Purva Vidhyarthi Parishad</h1>
+
+<p>
+Serving Society Through Unity, Education & Community Development
+</p>
+
+<a href="#about" class="btn">Learn More</a>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     ABOUT SECTION
+     Provides basic information about BPVP
+     ========================= -->
+
+<section id="about">
+
+<h2>About BPVP</h2>
+
+<p style="text-align:center;max-width:800px;margin:auto;">
+
+Bhut-Purva Vidhyarthi Parishad (BPVP), Lingmoo Kolthang is a registered
+non-governmental organization established to promote education, youth
+development, environmental awareness and social welfare.
+
+</p>
+
+
+<!-- Information cards -->
+
+<div class="cards" style="margin-top:35px;">
+
+<div class="card">
+
+<h3>Established</h3>
+
+<p>16 December 2023</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Registered</h3>
+
+<p>20 January 2026</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Affiliation</h3>
+
+<p>NYK Namchi</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     REGISTRATION & DOCUMENTS
+     Displays NGO registration and document information
+     ========================= -->
+
+<section>
+
+<h2>Registration & Documents</h2>
+
+
+<div class="timeline">
+
+<strong>Registered NGO</strong><br>
+
+Bhut-Purva Vidhyarthi Parishad, Lingmoo Kolthang
+
+</div>
+
+
+<div class="timeline">
+
+<strong>Available Documents</strong><br>
+
+Bye Laws • Registration Certificate • Bank Account • NGO Darpan • PAN Card
+
+</div>
+
+
+<div class="timeline">
+
+<strong>Current Process</strong><br>
+
+SBI Current Account & Khelo India Registration
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     EVENT GALLERY
+     The JavaScript below will automatically create
+     event boxes and display all event photographs
+     ========================= -->
+
+<section id="gallery">
+
+<h2>Our Event Gallery</h2>
+
+<div id="eventsContainer"></div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT SECTION
+     Displays BPVP contact information
+     ========================= -->
+
+<section id="contact">
+
+<h2>Contact Us</h2>
+
+<div class="cards">
+
+
+<div class="card">
+
+<h3>Email</h3>
+
+<p>bpvp2026@email.com</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Phone</h3>
+
+<p>+91 9832090000</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Location</h3>
+
+<p>Lingmoo Kolthang, Sikkim</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+     Displays the final message at the bottom
+     ========================= -->
+
+<footer>
+
+<h3>BPVP NGO</h3>
+
+<p>Together We Build A Better Tomorrow</p>
+
+</footer>
+
+
+<!-- =========================
+     IMAGE VIEWER
+     Hidden by default.
+     Opens when someone clicks a gallery photo.
+     ========================= -->
+
+<div id="viewer">
+
+<span id="close">&times;</span>
+
+<img id="bigImage">
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   EVENT DATA
+   Add new events and their photos inside this section.
+   Each event can contain as many images as you want.
+   ===================================================== */
+
+const events = [
+
+{
+title:"MSME Program",
+
+date:"3 Sept 2026",
+
+description:"Micro, Small and Medium Enterprises",
+
+/* Direct GitHub image URLs */
+images:[
+    "https://raw.githubusercontent.com/AyogSharma/BPVP_website/main/1.jpeg",
+    "https://raw.githubusercontent.com/AyogSharma/BPVP_website/main/2.jpeg",
+    "https://raw.githubusercontent.com/AyogSharma/BPVP_website/main/3.jpeg",
+    "https://raw.githubusercontent.com/AyogSharma/BPVP_website/main/4.jpeg",
+    "https://raw.githubusercontent.com/AyogSharma/BPVP_website/main/5.jpeg",
+    "https://raw.githubusercontent.com/AyogSharma/BPVP_website/main/6.jpeg",
+    "https://raw.githubusercontent.com/AyogSharma/BPVP_website/main/7.jpeg",
+    "https://raw.githubusercontent.com/AyogSharma/BPVP_website/main/8.jpeg",
+    "https://raw.githubusercontent.com/AyogSharma/BPVP_website/main/9.jpeg",
+    "https://raw.githubusercontent.com/AyogSharma/BPVP_website/main/10.jpeg",
+    "https://raw.githubusercontent.com/AyogSharma/BPVP_website/main/11.jpeg",
+    "https://raw.githubusercontent.com/AyogSharma/BPVP_website/main/12.jpeg"
+
+]
+
+},
+
+
+/*{
+title:"Health Awareness Camp",
+date:"28 July 2026",
+description:"Free health check-up and awareness programme.",
+
+images:[
+"https://picsum.photos/id/1050/500/500",
+"https://picsum.photos/id/1060/500/500",
+"https://picsum.photos/id/1074/500/500",
+"https://picsum.photos/id/1084/500/500"
+]
+}*/
+
+];
+
+
+/* =====================================================
+   EVENT DISPLAY
+   Finds the eventsContainer and automatically creates
+   HTML boxes for every event in the events array.
+   ===================================================== */
+
+const container=document.getElementById("eventsContainer");
+
+
+events.forEach(event=>{
+
+const box=document.createElement("div");
+
+box.className="event";
+
+
+/* Creates the event title, date, description and images */
+
+box.innerHTML=`
+
+<h3>${event.title}</h3>
+
+<p><b>${event.date}</b></p>
+
+<p>${event.description}</p>
+
+<div class="images">
+
+${event.images.map(img=>`<img src="${img}" alt="${event.title}">`).join("")}
+
+</div>
+
+`;
+
+
+/* Adds the completed event box to the webpage */
+
+container.appendChild(box);
+
+});
+
+
+/* =====================================================
+   IMAGE VIEWER
+   Gets the image viewer and the large image element
+   ===================================================== */
+
+const viewer=document.getElementById("viewer");
+
+const big=document.getElementById("bigImage");
+
+
+/* =====================================================
+   OPEN IMAGE
+   Detects when a gallery image is clicked and opens
+   that image in the full-screen viewer.
+   ===================================================== */
+
+document.addEventListener("click",function(e){
+
+if(
+    e.target.tagName==="IMG" &&
+    e.target.parentElement.className==="images"
+){
+
+viewer.style.display="flex";
+
+big.src=e.target.src;
+
+}
+
+});
+
+
+/* =====================================================
+   CLOSE BUTTON
+   Closes the image viewer when the X button is clicked.
+   ===================================================== */
+
+document.getElementById("close").onclick=()=>{
+
+viewer.style.display="none";
+
+};
+
+
+/* =====================================================
+   CLOSE BY CLICKING OUTSIDE IMAGE
+   Clicking the dark background closes the image viewer.
+   ===================================================== */
+
+viewer.onclick=(e)=>{
+
+if(e.target===viewer)
+
+viewer.style.display="none";
+
+};
+
+</script>
+
+
+</body>
+</html>
